@@ -60,16 +60,21 @@ class SubsController < ApplicationController
   before_action :find_sub, only: [:show, :update, :edit, :destroy]
   # before_action :find_sub, except: [:index, :new, :create]
 
+#get requests automatically render html page
   def index
     @subs = Sub.all
+    #renders index.html automatically
   end
-
+#get request
   def show
     # @sub  = Sub.find(params[:id])
   end
-
+#get request
   def new
     @sub = Sub.new
+    #renders new.html.erb
+
+    render partial: 'subs/form'
   end
 
   def create
@@ -78,10 +83,13 @@ class SubsController < ApplicationController
       redirect_to subs_path
     else
     render :new
+    end
   end
-
+#get request
   def edit
     # @sub = Sub.find(params[:id])
+    #renders edit.html.erb
+    render partial: 'subs/form' #overrides default edit.html.erb
   end
 
   def update
@@ -109,11 +117,10 @@ private
   def find_sub
     @sub = Sub.find(params[:id])
   end
-
 end
 
 #repeating Sub.find(params[:id]) so should use
 #Callbacks: before_action
-# =>        after_action
-# =>        skip_before_action
-# =>        skip_after_action
+#       after_action
+#        skip_before_action
+#        skip_after_action
